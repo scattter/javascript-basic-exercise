@@ -11,12 +11,12 @@ describe('for wait for all', () => {
     });
   }
 
-  it('should throw if not all elements are promises', () => {
+  fit('should throw if not all elements are promises', () => {
     const notAllElementsArePromises = [Promise.resolve(), 2];
     expect(() => waitForAll(...notAllElementsArePromises)).toThrowError('Not all elements are promises.');
   });
 
-  it('should wait for all promises to resolve to get a resolved promise', (done) => {
+  fit('should wait for all promises to resolve to get a resolved promise', (done) => {
     const stopwatch = new Stopwatch();
     const delay50ms = createDelayedPromise(50);
     const delay1000ms = createDelayedPromise(1000);
@@ -27,7 +27,7 @@ describe('for wait for all', () => {
       });
   });
 
-  it('should wait for all promise for reject scenario', (done) => {
+  fit('should wait for all promise for reject scenario', (done) => {
     const stopwatch = new Stopwatch();
     const delay50msFailed = createDelayedPromise(50, false);
     const delay1000msSuccess = createDelayedPromise(1000);

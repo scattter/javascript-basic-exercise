@@ -1,3 +1,5 @@
+import { resolvePlugin } from "@babel/core";
+
 export default function waitForAll(...promises) {
   // This function returns a promise which will be triggered when all the `promises` are completed.
   //
@@ -9,5 +11,22 @@ export default function waitForAll(...promises) {
   // * Please implement this function and pass all the tests in wait_for_all_spec.js.
   // * Please do NOT modify the signature of the function.
 
-  throw new Error('Please delete this line and implement the function');
+  for(var i = 0; i < promises.length; i++){
+    var temp = promises[i] instanceof Promise;
+    if(!temp){  //如果为非promise
+      throw new Error('Not all elements are promises.')
+    }
+  }
+  
+  // return promises[0].then(
+  //   () => promises[1].then()
+  // ).catch((err) => promises[1].then());
+  // return Promise.all(promises).then()
+  
+  return Promise.allSettled(promises).then(
+    res => res.filter(r => r.status === 'rejected')
+  ).then(
+    res => (res.length > 0 ? Promise.reject() : Promise.resolve())
+  );
+
 }
